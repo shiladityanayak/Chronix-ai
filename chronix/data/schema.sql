@@ -2,6 +2,8 @@ CREATE TABLE IF NOT EXISTS users (
     user_id BIGINT PRIMARY KEY,
     balance BIGINT DEFAULT 0,
     bank BIGINT DEFAULT 0,
+    xp BIGINT DEFAULT 0,
+    level INTEGER DEFAULT 1,
     last_daily TIMESTAMP WITHOUT TIME ZONE
 );
 
