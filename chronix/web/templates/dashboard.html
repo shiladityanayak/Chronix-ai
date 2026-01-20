@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-3xl font-bold my-8">Select a Server</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    {% for guild in guilds %}
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-blue-500 transition cursor-pointer">
+        <div class="flex items-center mb-4">
+            {% if guild.icon %}
+                <img src="https://cdn.discordapp.com/icons/{{ guild.id }}/{{ guild.icon }}.png" class="w-12 h-12 rounded-full mr-4">
+            {% else %}
+                <div class="w-12 h-12 bg-gray-600 rounded-full mr-4 flex items-center justify-center text-xl">?</div>
+            {% endif %}
+            <h3 class="font-bold text-lg truncate">{{ guild.name }}</h3>
+        </div>
+        <a href="/server/{{ guild.id }}" class="block w-full text-center bg-blue-600 py-2 rounded hover:bg-blue-700">Manage</a>
+    </div>
+    {% else %}
+    <p class="text-gray-400">No servers found where you are an Admin and Chronix is invited.</p>
+    {% endfor %}
+</div>
+{% endblock %}

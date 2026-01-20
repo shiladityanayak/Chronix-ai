@@ -4,6 +4,9 @@ import os
 import asyncio
 from dotenv import load_dotenv
 from core.database import Database
+from web.app import app as web_app
+from hypercorn.asyncio import serve
+from hypercorn.config import Config as HyperConfig
 
 load_dotenv()
 
@@ -18,6 +21,12 @@ class ChronixBot(commands.Bot):
         self.db = Database()
 
     async def setup_hook(self):
+        # Inject bot instance into web app
+        web_app.bot = self
+
+        # Start Web Server in background task
+        self.loop.create_task(self.start_web_server())
+
         # Initialize Database
         try:
             await self.db.connect()
@@ -59,6 +68,11 @@ class ChronixBot(commands.Bot):
             await ctx.send(f"An error occurred: {error}")
             # Raise it to log it to console as well
             raise error
+
+    async def start_web_server(self):
+        config = HyperConfig()
+        config.bind = ["0.0.0.0:5000"]
+        await serve(web_app, config)
 
 if __name__ == "__main__":
     bot = ChronixBot()

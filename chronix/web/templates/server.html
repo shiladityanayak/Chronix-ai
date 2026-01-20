@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex items-center my-8">
+    <a href="/dashboard" class="text-gray-400 mr-4 hover:text-white">&larr; Back</a>
+    <h2 class="text-3xl font-bold">{{ guild_name }} Settings</h2>
+</div>
+
+<div class="bg-gray-800 p-8 rounded-lg max-w-2xl mx-auto">
+    <form action="/api/server/{{ guild_id }}/update" method="POST">
+
+        <!-- Automod Toggle -->
+        <div class="mb-6 flex items-center justify-between">
+            <div>
+                <label class="block text-xl font-bold mb-1">Automod</label>
+                <p class="text-gray-400 text-sm">Automatically block invite links and spam.</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="automod" class="sr-only peer" {% if config and config.automod_enabled %}checked{% endif %}>
+                <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="w-full bg-green-600 py-3 rounded-lg font-bold hover:bg-green-700 transition">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

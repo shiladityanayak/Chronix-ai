@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center py-20">
+    <h1 class="text-5xl font-bold mb-6">Welcome, {{ user['username'] }}!</h1>
+    <a href="{{ url_for('dashboard') }}" class="bg-blue-600 px-6 py-3 rounded-lg text-xl hover:bg-blue-700">Go to Dashboard</a>
+</div>
+{% endblock %}
