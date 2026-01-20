@@ -1,23 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2 class="text-3xl font-bold my-8">Select a Server</h2>
+<div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold mb-8 flex items-center">
+        <span class="bg-blue-600 w-2 h-8 rounded mr-4"></span>
+        Select a Server
+    </h2>
 
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-    {% for guild in guilds %}
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-blue-500 transition cursor-pointer">
-        <div class="flex items-center mb-4">
-            {% if guild.icon %}
-                <img src="https://cdn.discordapp.com/icons/{{ guild.id }}/{{ guild.icon }}.png" class="w-12 h-12 rounded-full mr-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for guild in guilds %}
+        <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 hover:border-blue-500/50 transition duration-300 hover:shadow-2xl hover:shadow-blue-500/10 group flex flex-col items-center text-center">
+
+            <div class="relative mb-4">
+                {% if guild.icon %}
+                    <img src="https://cdn.discordapp.com/icons/{{ guild.id }}/{{ guild.icon }}.png" class="w-20 h-20 rounded-full border-4 border-gray-700 group-hover:border-blue-500 transition">
+                {% else %}
+                    <div class="w-20 h-20 bg-gray-600 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-gray-700 group-hover:border-blue-500 transition">
+                        {{ guild.name[0] }}
+                    </div>
+                {% endif %}
+
+                {% if guild.in_server %}
+                    <span class="absolute bottom-0 right-0 w-5 h-5 bg-green-500 border-2 border-gray-800 rounded-full" title="Bot Added"></span>
+                {% endif %}
+            </div>
+
+            <h3 class="font-bold text-lg truncate w-full mb-4">{{ guild.name }}</h3>
+
+            {% if guild.in_server %}
+                <a href="/server/{{ guild.id }}" class="w-full bg-blue-600/20 text-blue-400 py-2 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition">
+                    Manage
+                </a>
             {% else %}
-                <div class="w-12 h-12 bg-gray-600 rounded-full mr-4 flex items-center justify-center text-xl">?</div>
+                <a href="#" class="w-full bg-gray-700 text-gray-400 py-2 rounded-lg font-semibold cursor-not-allowed">
+                    Bot Not Added
+                </a>
             {% endif %}
-            <h3 class="font-bold text-lg truncate">{{ guild.name }}</h3>
         </div>
-        <a href="/server/{{ guild.id }}" class="block w-full text-center bg-blue-600 py-2 rounded hover:bg-blue-700">Manage</a>
+        {% else %}
+        <div class="col-span-full text-center py-10">
+            <p class="text-gray-400 text-lg">No manageable servers found.</p>
+        </div>
+        {% endfor %}
     </div>
-    {% else %}
-    <p class="text-gray-400">No servers found where you are an Admin and Chronix is invited.</p>
-    {% endfor %}
 </div>
 {% endblock %}
