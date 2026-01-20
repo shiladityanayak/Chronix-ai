@@ -20,5 +20,14 @@ CREATE TABLE IF NOT EXISTS guilds (
     guild_id BIGINT PRIMARY KEY,
     log_channel_id BIGINT,
     ticket_category_id BIGINT,
-    automod_enabled BOOLEAN DEFAULT FALSE
+    automod_enabled BOOLEAN DEFAULT FALSE,
+    starboard_channel_id BIGINT,
+    starboard_limit INTEGER DEFAULT 3
+);
+
+CREATE TABLE IF NOT EXISTS inventory (
+    user_id BIGINT,
+    item_id TEXT,
+    amount INTEGER DEFAULT 0,
+    PRIMARY KEY (user_id, item_id)
 );
