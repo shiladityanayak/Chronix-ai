@@ -15,3 +15,10 @@ CREATE TABLE IF NOT EXISTS warns (
     moderator_id BIGINT NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc')
 );
+
+CREATE TABLE IF NOT EXISTS guilds (
+    guild_id BIGINT PRIMARY KEY,
+    log_channel_id BIGINT,
+    ticket_category_id BIGINT,
+    automod_enabled BOOLEAN DEFAULT FALSE
+);
