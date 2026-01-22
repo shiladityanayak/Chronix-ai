@@ -52,3 +52,5 @@ Chronix is a high-performance, multi-purpose Discord bot built with `discord.py`
 ```bash
 python3 chronix/main.py
 ```
+
+
